@@ -22,7 +22,16 @@ final class DriverService
         return ($phone === "77765056090" && $password === '123456') ? new DriverAuthority("77765056090") : null;
     }
 
-    public function addTrip(string $driver, string $cost, float $distance, string $spentTime, string $date): void
+    /**
+     * @throws \DomainException
+     * @throws \RuntimeException
+     */
+    public function addTrip(string $driver, float $cost, float $distance, string $spentTime, string $date): void
+    {
+    }
+
+    /** @return TripInfo[] */
+    public function allTrips(string $driver, int $offset, int $limit): array
     {
     }
 }

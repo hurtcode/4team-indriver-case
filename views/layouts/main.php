@@ -13,8 +13,11 @@ $this->registerCssFile('https://fonts.googleapis.com/css?family=Source+Sans+Pro:
 $assetDir = Yii::$app->assetManager->getPublishedUrl('@vendor/almasaeed2010/adminlte/dist');
 
 $publishedRes = Yii::$app->assetManager->publish('@vendor/hail812/yii2-adminlte3/src/web/js');
-$this->registerJsFile($publishedRes[1] . '/control_sidebar.js', ['depends' => '\hail812\adminlte3\assets\AdminLteAsset']
+$this->registerJsFile(
+    $publishedRes[1] . '/control_sidebar.js',
+    ['depends' => '\hail812\adminlte3\assets\AdminLteAsset']
 );
+$this->registerJsFile('/js/script.js', ['position' => \yii\web\View::POS_HEAD])
 ?>
 <?php
 $this->beginPage() ?>

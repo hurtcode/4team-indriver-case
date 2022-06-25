@@ -21,14 +21,14 @@ final class SiteController extends Controller
                 'class' => AccessControl::class,
                 'rules' => [
                     [
-                        'actions' => ['index'],
+                        'actions' => ['index', 'logout', 'preset'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
                     [
-                        'actions' => ['logout', 'preset', 'error'],
+                        'actions' => ['error'],
                         'allow' => true,
-                        'roles' => ['?']
+                        'roles' => ['?', '@']
                     ]
                 ],
             ],
@@ -71,8 +71,7 @@ final class SiteController extends Controller
      */
     public function actionIndex()
     {
-        $tripAddForm = TripAddForm::rand();
-        return $this->render('index', compact('tripAddForm'));
+        return $this->render('index');
     }
 
     public function actionLogout()

@@ -8,7 +8,7 @@ use yii\base\Model;
 
 final class TripAddForm extends Model
 {
-    public int $cost;
+    public float $cost;
     public float $distance;
     public string $spentTime;
     public string $date;
@@ -30,7 +30,10 @@ final class TripAddForm extends Model
     public function rules(): array
     {
         return [
-
+            [['cost', 'distance', 'spentTime', 'date'], 'required'],
+            [['cost', 'distance'], 'double'],
+            [['spentTime'], 'date', 'format' => 'php:H:i:s'],
+            [['date'], 'date', 'format' => 'php:d-m-Y'],
         ];
     }
 

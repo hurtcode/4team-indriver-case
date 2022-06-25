@@ -16,6 +16,7 @@ final class SignInForm extends Model
         return [
             [['login', 'password'], 'required'],
             [['login', 'password'], 'string'],
+            [['login', 'password'], 'trim'],
         ];
     }
 
