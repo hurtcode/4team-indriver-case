@@ -11,9 +11,11 @@ $config = [
         '@bower' => '@vendor/bower-asset',
         '@npm' => '@vendor/npm-asset',
     ],
+    'language' => 'ru-RU',
     'controllerMap' => [
-        'site' => \OutDriver\Yii\SiteController::class,
-        'trip' => \OutDriver\Yii\Trip\TripController::class
+        'site' => \OutDriver\Yii\Application\SiteController::class,
+        'trip' => \OutDriver\Yii\Application\Trip\TripController::class,
+        'driver' => \OutDriver\Yii\Application\Driver\DriverController::class
     ],
     'container' => require __DIR__ . '/definitions.php',
     'components' => [
@@ -24,8 +26,9 @@ $config = [
             'class' => 'yii\caching\FileCache',
         ],
         'user' => [
-            'identityClass' => 'app\models\User',
+            'identityClass' => \OutDriver\Yii\Application\Driver\ApplicationUser::class,
             'enableAutoLogin' => true,
+            'loginUrl' => ['driver/sign-in']
         ],
         'errorHandler' => [
             'errorAction' => 'site/error',

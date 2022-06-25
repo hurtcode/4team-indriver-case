@@ -29,14 +29,10 @@ $this->beginPage() ?>
     $this->beginBody() ?>
 	<div class="login-box">
 		<div class="login-logo">
-			<a href="<?= Yii::$app->homeUrl ?>"><b>Admin</b>LTE</a>
+			<a href="<?= Yii::$app->homeUrl ?>"><b>Fintech</b>Hackathon</a>
 		</div>
-		<!-- /.login-logo -->
-
         <?= $content ?>
 	</div>
-	<!-- /.login-box -->
-
     <?php
     $this->endBody() ?>
 	</body>

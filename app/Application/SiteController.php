@@ -1,13 +1,15 @@
 <?php
 
-namespace OutDriver\Yii;
+declare(strict_types=1);
 
-use OutDriver\Yii\Trip\TripAddForm;
+namespace OutDriver\Yii\Application;
+
+use OutDriver\Yii\Application\Trip\TripAddForm;
 use yii\filters\AccessControl;
-use yii\web\Controller;
 use yii\filters\VerbFilter;
+use yii\web\Controller;
 
-class SiteController extends Controller
+final class SiteController extends Controller
 {
     /**
      * {@inheritdoc}
@@ -17,13 +19,17 @@ class SiteController extends Controller
         return [
             'access' => [
                 'class' => AccessControl::class,
-                'only' => ['logout'],
                 'rules' => [
                     [
-                        'actions' => ['logout'],
+                        'actions' => ['index'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
+                    [
+                        'actions' => ['logout', 'preset', 'error'],
+                        'allow' => true,
+                        'roles' => ['?']
+                    ]
                 ],
             ],
             'verbs' => [
@@ -43,6 +49,8 @@ class SiteController extends Controller
         return [
             'error' => [
                 'class' => 'yii\web\ErrorAction',
+                'layout' => !\Yii::$app->user->isGuest
+                    ? 'main' : 'main-login'
             ],
         ];
     }

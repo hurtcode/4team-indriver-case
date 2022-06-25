@@ -1,7 +1,7 @@
 <?php
 /**
  * @var \yii\web\View $this
- * @var \OutDriver\Yii\Trip\TripAddForm $tripAddForm
+ * @var \OutDriver\Yii\Application\Trip\TripAddForm $tripAddForm
  */
 
 use yii\bootstrap4\ActiveForm;

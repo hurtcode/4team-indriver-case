@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace OutDriver\Yii\Trip;
+namespace OutDriver\Yii\Application\Trip;
 
 use yii\web\Controller;
 
