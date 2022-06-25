@@ -21,4 +21,8 @@ final class DriverService
         // TODO::MOCK BELOW
         return ($phone === "77765056090" && $password === '123456') ? new DriverAuthority("77765056090") : null;
     }
+
+    public function addTrip(string $driver, string $cost, float $distance, string $spentTime, string $date): void
+    {
+    }
 }
