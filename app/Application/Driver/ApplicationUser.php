@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace OutDriver\Yii\Application\Driver;
 
-use OutDriver\Application\DriverAuthority;
-use OutDriver\Application\DriverService;
 use yii\web\IdentityInterface;
+use OutDriver\Application\DriverService;
+use OutDriver\Application\Dto\DriverAuthority;
 
 final class ApplicationUser implements IdentityInterface
 {

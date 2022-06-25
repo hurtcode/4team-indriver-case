@@ -4,10 +4,14 @@ declare(strict_types=1);
 
 namespace OutDriver\Domain\Driver\Car;
 
+use Cycle\Annotated\Annotation\Column;
+use Cycle\Annotated\Annotation\Embeddable;
 use Exception;
 
+#[Embeddable]
 final class Engine
 {
+    #[Column(type: 'float',name: 'gasConsumption')]
     private float $gasConsumption;
 
     /** @throws Exception */

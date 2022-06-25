@@ -6,6 +6,7 @@
         "cycle/annotated": "^3.1",
         "cycle/orm": "^2.1",
         "hail812/yii2-adminlte3": "^1.1",
+        "robmorgan/phinx": "^0.12.10",
         "vlucas/phpdotenv": "^5.4",
         "yiisoft/yii2": "~2.0.14",
         "yiisoft/yii2-bootstrap4": "~2.0.0",

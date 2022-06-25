@@ -4,8 +4,22 @@ declare(strict_types=1);
 
 namespace OutDriver\Application;
 
+use DomainException;
+use RuntimeException;
+use OutDriver\Domain\TripHistory\Trip;
+use OutDriver\Application\Dto\DriverAuthority;
+use OutDriver\Application\Dto\AmortizationResponse;
+
 final class DriverService
 {
+    public function __construct(
+//        private readonly Amortization     $amortization,
+//        private readonly TripRepository   $tripRepository,
+//        private readonly DriverRepository $driverRepository,
+    )
+    {
+    }
+
     /**
      * Finds Driver for auth session. Returns null if no
      * matched driver by phone
@@ -23,21 +37,51 @@ final class DriverService
     }
 
     /**
-     * @throws \DomainException
-     * @throws \RuntimeException
+     * @throws DomainException
+     * @throws RuntimeException
      */
     public function addTrip(
-        string $driver,
-        float $cost,
-        float $distance,
+        string $driverPhone,
+        float  $cost,
+        float  $distance,
         string $spentTime,
         string $date
     ): void
     {
+        $driver = $this
+            ->driverRepository
+            ->byPhone($driverPhone);
+
+        $trip = new Trip(
+            $driver,
+            $cost,
+            $distance,
+            \DateTimeImmutable::createFromFormat('h:i:s', $spentTime),
+            \DateTimeImmutable::createFromFormat('Y-m-d', $date)
+        );
+        $this->tripRepository->save($trip);
     }
 
-    /** @return TripInfo[] */
-    public function allTrips(string $driver, int $offset, int $limit): array
+    /** @return Trip[] */
+    public function allTrips(string $driverPhone, int $offset, int $limit): array
     {
+        $driver = $this
+            ->driverRepository
+            ->byPhone($driverPhone);
+
+        return $this->tripRepository->getAllBySpec($driverPhone, $offset, $limit);
+    }
+
+    public function amortization(int $driverId): AmortizationResponse
+    {
+        $driver = $this->driverRepository->byId($driverId);
+        $amortization = $this->amortization->amortization($driver);
+        $minimumTripCost = $amortization + $driver->paymentGoal()->additionalPayment();
+
+        return new AmortizationResponse(
+            $amortization,
+            $minimumTripCost,
+            $driver->paymentGoal()->goal()
+        );
     }
 }

@@ -4,17 +4,28 @@ declare(strict_types=1);
 
 namespace OutDriver\Domain\Driver\Car;
 
+use Cycle\Annotated\Annotation\Column;
+use Cycle\Annotated\Annotation\Embeddable;
+use Cycle\Annotated\Annotation\Relation\Embedded;
 use OutDriver\Domain\Driver\FuelType;
 
+#[Embeddable]
 final class Car
 {
+    #[Column(type: 'string', name: 'model')]
     private string $model;
+    #[Column(type: 'float', name: 'price')]
     private readonly float $price;
 
+    #[Embedded(Engine::class)]
     private Engine $engine;
+    #[Embedded(Category::class)]
     private Category $category;
+    #[Embedded(FuelType::class)]
     private ?FuelType $preferableFuel;
+    #[Embedded(ExploitationHistory::class)]
     private ?ExploitationHistory $history = null;
+    #[Embedded(RepairHistory::class)]
     private ?RepairHistory $repairHistory = null;
 
     public function __construct(
@@ -63,7 +74,8 @@ final class Car
         return $this->price;
     }
 
-    public function repairHistory(): RepairHistory {
+    public function repairHistory(): RepairHistory
+    {
         return $this->repairHistory;
     }
 }

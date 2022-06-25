@@ -18,7 +18,11 @@ final class DriverController extends Controller
                 'class' => AccessControl::class,
                 'rules' => [
                     [
-                        'actions' => ['sign-in', 'sign-up'],
+                        'actions' => [
+                            'car',
+                            'sign-in',
+                            'sign-up',
+                        ],
                         'allow' => true,
                         'roles' => ['?'],
                     ],
@@ -54,5 +58,9 @@ final class DriverController extends Controller
     public function actionSignUp(): string
     {
         return "SignUp";
+    }
+
+    public function actionCar(): string
+    {
     }
 }

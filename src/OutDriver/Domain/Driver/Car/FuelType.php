@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace OutDriver\Domain\Driver;
 
+use Cycle\Annotated\Annotation\Embeddable;
+
+#[Embeddable]
 enum FuelType: int
 {
     case AI80 = 80;

@@ -8,7 +8,6 @@ use OutDriver\Domain\Driver\Driver;
 use OutDriver\Domain\Driver\FuelType;
 use OutDriver\Domain\TripHistory\Trip;
 use OutDriver\Domain\Driver\FuelPriceList;
-use OutDriver\Domain\Driver\DriverRepository;
 use OutDriver\Domain\TripHistory\TripRepository;
 
 final class Amortization
@@ -16,17 +15,12 @@ final class Amortization
     public function __construct(
         private readonly FuelPriceList    $priceList,
         private readonly TripRepository   $tripRepository,
-        private readonly DriverRepository $driverRepository,
     )
     {
     }
 
-    public function amortization(int $driverId): float
+    public function amortization(Driver $driver): float
     {
-        $driver = $this
-            ->driverRepository
-            ->byId($driverId);
-
         $fuelPerKm = $this->fuelPerKm($driver);
         $carAmortization = $this->carAmortization($driver);
         $averageFixPrice = $this->averageFixPrice($driver);
