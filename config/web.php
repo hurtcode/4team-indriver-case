@@ -11,6 +11,10 @@ $config = [
         '@bower' => '@vendor/bower-asset',
         '@npm' => '@vendor/npm-asset',
     ],
+    'controllerMap' => [
+        'site' => \OutDriver\Yii\SiteController::class,
+        'trip' => \OutDriver\Yii\Trip\TripController::class
+    ],
     'components' => [
         'request' => [
             'cookieValidationKey' => 'PZxC-3KCOyZzMKqAoQXTrMUL9wR83hZF',
