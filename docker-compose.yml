@@ -3,6 +3,18 @@ services:
   web:
     build: .
     ports:
-      - 8000:80
+      - "8000:80"
     volumes:
       - ./:/var/www/html/
+  postgres:
+    image: postgres
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: ${DB_NAME}
+    volumes:
+      - db:/var/lib/postgresql/data
+volumes:
+  db:
