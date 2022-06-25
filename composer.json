@@ -67,8 +67,8 @@
   ],
   "autoload": {
     "psr-4": {
-      "OutDriver\\Yii\\": "/app",
-      "OutDriver\\": "/src/OutDriver"
+      "OutDriver\\Yii\\": "app/",
+      "OutDriver\\": "src/OutDriver/"
     }
   }
 }
