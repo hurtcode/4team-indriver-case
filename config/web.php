@@ -15,6 +15,7 @@ $config = [
         'site' => \OutDriver\Yii\SiteController::class,
         'trip' => \OutDriver\Yii\Trip\TripController::class
     ],
+    'container' => require __DIR__ . '/definitions.php',
     'components' => [
         'request' => [
             'cookieValidationKey' => 'PZxC-3KCOyZzMKqAoQXTrMUL9wR83hZF',
@@ -38,7 +39,6 @@ $config = [
                 ],
             ],
         ],
-        'db' => $db,
         'urlManager' => [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
