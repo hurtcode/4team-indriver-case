@@ -57,4 +57,13 @@ final class Car
     {
         return $this->preferableFuel;
     }
+
+    public function price(): float
+    {
+        return $this->price;
+    }
+
+    public function repairHistory(): RepairHistory {
+        return $this->repairHistory;
+    }
 }

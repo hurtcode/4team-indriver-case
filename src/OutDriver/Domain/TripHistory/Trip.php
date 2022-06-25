@@ -9,9 +9,14 @@ final class Trip
     public function __construct(
         private readonly float              $cost,
         private readonly float              $distance,
-        private readonly \DatePeriod        $spentTime,
+        private readonly \DateTimeImmutable $spentTime,
         private readonly \DateTimeImmutable $date,
     )
     {
+    }
+
+    public function distance(): float
+    {
+        return $this->distance;
     }
 }

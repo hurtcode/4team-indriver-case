@@ -6,4 +6,5 @@ namespace OutDriver\Domain\TripHistory;
 
 interface TripRepository
 {
+    public function getForMonth(): array;
 }

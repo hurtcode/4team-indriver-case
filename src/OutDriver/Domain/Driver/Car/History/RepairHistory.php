@@ -12,4 +12,14 @@ final class RepairHistory
     public function __construct()
     {
     }
+
+    public function averageFixPrice(): float
+    {
+        return $this->averageFixPrice;
+    }
+
+    public function fixInterval(): float
+    {
+        return $this->fixInterval;
+    }
 }

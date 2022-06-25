@@ -8,6 +8,7 @@ final class DriverAuthority
 {
     public function __construct(
         public readonly string $phone,
-    ) {
+    )
+    {
     }
 }
