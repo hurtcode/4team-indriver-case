@@ -8,7 +8,7 @@ use Exception;
 
 final class Engine
 {
-    private float $GasConsumption;
+    private float $gasConsumption;
 
     /** @throws Exception */
     public function __construct(
@@ -21,9 +21,14 @@ final class Engine
     /** @throws Exception */
     public function setAvgGasConsumption(float $GasConsumption): void
     {
-        if ($this->GasConsumption < 0)
+        if ($this->gasConsumption < 0)
             throw new Exception("Invalid Gas consumption metric! It should be higher then 0");
 
-        $this->GasConsumption = $GasConsumption;
+        $this->gasConsumption = $GasConsumption;
+    }
+
+    public function gasConsumption(): float
+    {
+        return $this->gasConsumption;
     }
 }

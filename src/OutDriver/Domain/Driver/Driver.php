@@ -30,4 +30,19 @@ final class Driver
         $this->phone = $phone;
         $this->password = $password;
     }
+
+    public function id(): int
+    {
+        return $this->id;
+    }
+
+    public function phone(): string
+    {
+        return $this->phone;
+    }
+
+    public function car(): Car
+    {
+        return $this->car;
+    }
 }
