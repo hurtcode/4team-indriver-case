@@ -26,7 +26,13 @@ final class DriverService
      * @throws \DomainException
      * @throws \RuntimeException
      */
-    public function addTrip(string $driver, float $cost, float $distance, string $spentTime, string $date): void
+    public function addTrip(
+        string $driver,
+        float $cost,
+        float $distance,
+        string $spentTime,
+        string $date
+    ): void
     {
     }
 
