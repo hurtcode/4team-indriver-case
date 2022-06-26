@@ -20,6 +20,10 @@ return [
 
         \OutDriver\Domain\Driver\Trip\TripRepository::class => Instance::of(
             \OutDriver\Infrastructure\Persistence\TripHistory\TripRepository::class
+        ),
+
+        \OutDriver\Domain\Driver\FuelPriceList::class => Instance::of(
+            \OutDriver\Infrastructure\PriceLists\FuelPriceList::class
         )
     ],
     'singletons' => []
