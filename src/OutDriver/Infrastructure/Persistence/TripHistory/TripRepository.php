@@ -25,7 +25,7 @@ final class TripRepository
 		}
 	}
 
-	public function getForMonth(): array
+	public function getForMonth(int $driverId): array
 	{
 		try {
 			$previousMonth = date(
@@ -39,6 +39,7 @@ final class TripRepository
 			return $this->repository()->select()
 				->where('date', '>', $previousMonth)
 				->andWhere('date', '<', $nextMonth)
+				->andWhere('driverId', '=', $driverId)
 				->fetchAll();
 
 

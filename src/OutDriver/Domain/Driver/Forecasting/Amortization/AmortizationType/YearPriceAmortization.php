@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace OutDriver\Domain\Driver\Amortization\AmortizationType;
+namespace OutDriver\Domain\Driver\Forecasting\Amortization\AmortizationType;
 
 use OutDriver\Domain\Driver\Driver;
+use OutDriver\Domain\Driver\Forecasting\Amortization\AmortizationType;
 use OutDriver\Domain\Driver\Trip\Trip;
 use OutDriver\Domain\Driver\Trip\TripRepository;
-use OutDriver\Domain\Driver\Amortization\AmortizationType;
 
 final class YearPriceAmortization implements AmortizationType
 {
@@ -25,15 +25,15 @@ final class YearPriceAmortization implements AmortizationType
 	private function carAmortization(Driver $driver): float
 	{
 		$averageDistancePerYear = $this
-			->averageDistancePerYear();
+			->averageDistancePerYear($driver->id());
 
 		$amortizationPerYear = $driver->car()->price();
 		return $amortizationPerYear / $averageDistancePerYear;
 	}
 
-	private function averageDistancePerYear(): float
+	private function averageDistancePerYear(int $driverId): float
 	{
-		$trips = $this->repository->getForMonth();
+		$trips = $this->repository->getForMonth($driverId);
 		$distancePerMonth = array_sum(
 			array_map(function (Trip $trip) {
 				return $trip->distance();

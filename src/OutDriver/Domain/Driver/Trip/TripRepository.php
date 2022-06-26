@@ -6,9 +6,9 @@ namespace OutDriver\Domain\Driver\Trip;
 
 interface TripRepository
 {
-    public function getForMonth(): array;
+	public function save(Trip $trip): void;
 
-    public function save(Trip $trip): void;
+	public function getForMonth(int $driverId): array;
 
-    public function getAllBySpec(string $driverPhone, int $offset, int $limit);
+	public function getAllBySpec(string $driverPhone, int $offset, int $limit);
 }

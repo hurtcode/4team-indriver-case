@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace OutDriver\Domain\Driver\Amortization\AmortizationType;
+namespace OutDriver\Domain\Driver\Forecasting\Amortization\AmortizationType;
 
-use OutDriver\Domain\Driver\Driver;
 use OutDriver\Domain\Driver\Car\FuelType;
+use OutDriver\Domain\Driver\Driver;
+use OutDriver\Domain\Driver\Forecasting\Amortization\AmortizationType;
 use OutDriver\Domain\Driver\FuelPriceList;
-use OutDriver\Domain\Driver\Amortization\AmortizationType;
 
 final class FuelAmortization implements AmortizationType
 {

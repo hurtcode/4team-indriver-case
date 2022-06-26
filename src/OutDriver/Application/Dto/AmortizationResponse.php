@@ -8,7 +8,6 @@ final class AmortizationResponse
 {
     public function __construct(
         public readonly float $amortization,
-        public readonly float $minimumTripCost,
         public readonly float $paymentGoals
     )
     {
