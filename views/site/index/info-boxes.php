@@ -155,7 +155,7 @@ $("#wish-income").on("focusout", function (){
 
 $(document).on('re-calculate', function () {
     let costs_container = $("#costs");
-    let fetchRes = fetchMinPrice();
+    let fetchRes = fetchCosts();
     costs_container.fadeOut({
         duration: anim_duration,
         complete: () => {
