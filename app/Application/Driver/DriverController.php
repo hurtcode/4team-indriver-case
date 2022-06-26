@@ -59,8 +59,4 @@ final class DriverController extends Controller
     {
         return "SignUp";
     }
-
-    public function actionCar(): string
-    {
-    }
 }

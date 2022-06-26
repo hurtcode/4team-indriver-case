@@ -8,10 +8,10 @@ use yii\base\Model;
 
 final class TripAddForm extends Model
 {
-    public float $cost;
-    public float $distance;
-    public string $spentTime;
-    public string $date;
+    public float $cost = 0.0;
+    public float $distance = 0.0;
+    public string $spentTime = '';
+    public string $date = '';
 
     public static function rand(): TripAddForm
     {

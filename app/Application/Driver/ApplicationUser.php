@@ -37,7 +37,7 @@ final class ApplicationUser implements IdentityInterface
         return null;
     }
 
-    public function validateAuthKey($authKey)
+    public function validateAuthKey($authKey): bool
     {
         return true;
     }

@@ -7,7 +7,7 @@ namespace OutDriver\Domain\Driver;
 use Cycle\Annotated\Annotation\Column;
 use Cycle\Annotated\Annotation\Entity;
 use Cycle\Annotated\Annotation\Relation\Embedded;
-use OutDriver\Domain\Driver\Car;
+use OutDriver\Domain\Driver\Car\Car;
 
 #[Entity(table: 'driver', database: 'outdriver')]
 final class Driver
@@ -24,12 +24,11 @@ final class Driver
     private PaymentGoals $goals;
 
     public function __construct(
-        int    $id,
-        Car    $car,
+        int $id,
+        Car $car,
         string $phone,
         string $password
-    )
-    {
+    ) {
         $this->setGoals();
         $this->setCar($car);
         $this->setIdentity($id, $phone, $password);

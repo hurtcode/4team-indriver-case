@@ -42,6 +42,7 @@ final class TripController extends Controller
                         $tripAddForm->spentTime,
                         $tripAddForm->date
                     );
+                $tripAddForm = new TripAddForm();
             } catch (\DomainException|\RuntimeException $t) {
                 $error = match (true) {
                     $t instanceof \DomainException => "Добавление поездки невозможно!",
@@ -51,5 +52,9 @@ final class TripController extends Controller
         }
 
         return $this->renderAjax('add-form', ['tripAddForm' => $tripAddForm, 'error' => $error ?? null]);
+    }
+
+    public function actionAllTrips(): void
+    {
     }
 }
