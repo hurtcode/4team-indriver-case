@@ -4,8 +4,8 @@ services:
     build: .
     ports:
       - "8000:80"
-    volumes:
-      - ./:/var/www/html/
+#    volumes:
+#      - ./:/var/www/html/
   postgres:
     image: postgres
     ports:
