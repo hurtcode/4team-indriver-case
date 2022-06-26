@@ -98,9 +98,10 @@ final class DriverService
 		$this->driverRepository->persist($driver);
 	}
 
-	public function getPlannedGoals(string $driverPhone): Driver
+	public function getDrivePrice(string $driverPhone): float
 	{
-		return $this->driverRepository->byPhone($driverPhone);
+		$driver = $this->driverRepository->byPhone($driverPhone);
+		return $driver->paymentGoal()->additionalPayment();
 	}
 
 	public function amortization(int $driverId): AmortizationResponse
@@ -108,9 +109,6 @@ final class DriverService
 		$driver = $this->driverRepository->byId($driverId);
 		$amortization = $this->amortization->amortization($driver);
 
-		return new AmortizationResponse(
-			$amortization,
-			$driver->paymentGoal()->goal()
-		);
+		return new AmortizationResponse($amortization);
 	}
 }
