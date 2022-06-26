@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace OutDriver\Domain\Driver;
 
-use OutDriver\Domain\TripHistory\Trip;
 use OutDriver\Domain\Driver\Car\FuelType;
-use OutDriver\Domain\TripHistory\TripRepository;
+use OutDriver\Domain\Driver\Trip\Trip;
+use OutDriver\Domain\Driver\Trip\TripRepository;
 
 final class Amortization
 {

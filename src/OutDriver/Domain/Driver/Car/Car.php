@@ -22,6 +22,8 @@ use OutDriver\Infrastructure\Persistence\EnumTypecast;
 )]
 final class Car
 {
+    #[Column(type: 'integer', name: 'driverId')]
+    private int $driverId;
     #[Column(type: 'string', name: 'model')]
     private string $model;
     #[Column(type: 'float', name: 'price')]
@@ -38,10 +40,12 @@ final class Car
     private RepairHistory $repairHistory;
 
     public function __construct(
+        int $driverId,
         string $model,
         Engine $engine,
         string $category,
     ) {
+        $this->driverId = $driverId;
         $this->setModel($model);
         $this->setEngine($engine);
         $this->setCategory($category);

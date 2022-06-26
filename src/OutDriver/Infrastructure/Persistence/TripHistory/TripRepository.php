@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace OutDriver\Infrastructure\Persistence\TripHistory;
 
-use OutDriver\Domain\TripHistory\Trip;
+use OutDriver\Domain\Driver\Trip\Trip;
 use OutDriver\Infrastructure\Persistence\AbstractRepository;
 
 final class TripRepository
 	extends AbstractRepository
-	implements \OutDriver\Domain\TripHistory\TripRepository
+	implements \OutDriver\Domain\Driver\Trip\TripRepository
 {
 	protected function entity(): string
 	{

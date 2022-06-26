@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace OutDriver\Domain\TripHistory;
+namespace OutDriver\Domain\Driver\Trip;
 
 interface TripRepository
 {
