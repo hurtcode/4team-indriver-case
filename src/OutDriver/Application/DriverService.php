@@ -32,14 +32,25 @@ final class DriverService
 	 */
 	public function driverByIdentity(string $phone): ?DriverAuthority
 	{
-		// TODO::MOCK BELOW
-		return $phone === "77765056090" ? new DriverAuthority("77765056090") : null;
+		$driver = $this
+			->driverRepository
+			->byPhone($phone);
+
+		return empty($driver)
+			? null
+			: new DriverAuthority($driver->phone());
 	}
 
 	public function authorize(string $phone, string $password): ?DriverAuthority
 	{
-		// TODO::MOCK BELOW
-		return ($phone === "77765056090" && $password === '123456') ? new DriverAuthority("77765056090") : null;
+		$driver = $this->driverRepository->byPhone($phone);
+
+		if (empty($driver))
+			return null;
+
+		return $driver->password() === $password
+			? new DriverAuthority($driver->phone())
+			: null;
 	}
 
 	/**
