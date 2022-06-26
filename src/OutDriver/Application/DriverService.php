@@ -84,7 +84,7 @@ final class DriverService
 			$this->forecastingService->planGoals($driver, $goals)
 		);
 
-		$this->driverRepository->save($driver);
+		$this->driverRepository->persist($driver);
 	}
 
 	public function getPlannedGoals(string $driverPhone): Driver

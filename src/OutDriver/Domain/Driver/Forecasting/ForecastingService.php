@@ -12,38 +12,41 @@ use OutDriver\Infrastructure\Persistence\TripHistory\TripRepository;
 
 final class ForecastingService
 {
-	public function __construct(
-		private readonly TripRepository $repository,
-		private readonly Amortization $amortization,
-	)
-	{
-	}
+    public function __construct(
+        private readonly TripRepository $repository,
+        private readonly Amortization $amortization,
+    ) {
+    }
 
-	public function planGoals(Driver $driver, float $goal): PaymentGoals
-	{
-		$distancePerMonth = $this->distancePerMonth($driver);
+    public function planGoals(Driver $driver, float $goal): PaymentGoals
+    {
+        $distancePerMonth = $this->distancePerMonth($driver);
 
-		$amortization = $this->amortization->amortization($driver);
+        $amortization = $this->amortization->amortization($driver);
 
-		$minimalAdditionalPayment = ($goal / $distancePerMonth) + $amortization;
-		return new PaymentGoals($goal, $minimalAdditionalPayment);
-	}
+        $minimalAdditionalPayment = ($goal / $distancePerMonth) + $amortization;
+        return new PaymentGoals($goal, $minimalAdditionalPayment);
+    }
 
-	private function paymentGoal(Driver $driver): float
-	{
-		return $driver->paymentGoal()->goal();
-	}
+    private function paymentGoal(Driver $driver): float
+    {
+        return $driver->paymentGoal()->goal();
+    }
 
-	private function distancePerMonth(Driver $driver): float
-	{
-		$trips = $this
-			->repository
-			->getForMonth($driver->id());
+    private function distancePerMonth(Driver $driver): float
+    {
+        $trips = $this
+            ->repository
+            ->getForMonth($driver->id());
 
-		return array_sum(
-			array_map(function (Trip $trip) {
-				return $trip->distance();
-			}, $trips)
-		);
-	}
+        if (empty($trips)) {
+            return 0;
+        }
+
+        return array_sum(
+            array_map(function (Trip $trip) {
+                return $trip->distance();
+            }, $trips)
+        );
+    }
 }
