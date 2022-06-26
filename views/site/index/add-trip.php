@@ -67,6 +67,7 @@ $(document).on('beforeSubmit', '#trip-add-form', function (event) {
                                 container.fadeIn({
                                     duration: anim_duration
                                 })
+                                $(document).trigger("re-calculate")
                             }
                         })
                     })

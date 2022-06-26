@@ -37,7 +37,11 @@ final class DriverService
 
         return empty($driver)
             ? null
-            : new DriverAuthority($driver->id(), $driver->phone());
+            : new DriverAuthority(
+                $driver->id(),
+                $driver->phone(),
+                $driver->paymentGoal()->goal()
+            );
     }
 
     public function authorize(string $phone, string $password): ?DriverAuthority

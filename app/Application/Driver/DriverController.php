@@ -27,7 +27,7 @@ final class DriverController extends Controller
                         'roles' => ['?'],
                     ],
                     [
-                        'actions' => ['costs'],
+                        'actions' => ['costs', 'min-price', 'calculate-min-price'],
                         'allow' => true,
                         'roles' => ['@']
                     ]
@@ -75,6 +75,40 @@ final class DriverController extends Controller
         }
 
         return (string)round($res->amortization, 2);
+    }
+
+    public function actionMinPrice(): string
+    {
+        if (!$this->request->isAjax) {
+            return 'Not Allowed!';
+        }
+
+        try {
+            $phone = \Yii::$app->user->getId();
+            $res = \Yii::$container->get(DriverService::class)
+                ->getDrivePrice($phone);
+        } catch (\Throwable $t) {
+            return "Ошибка!";
+        }
+
+        return (string)round($res, 2);
+    }
+
+    public function actionCalculateMinPrice(?int $goal = null): int
+    {
+        if (!$this->request->isAjax) {
+            return 1;
+        }
+
+        try {
+            $phone = \Yii::$app->user->getId();
+            $goal = $goal ?? \Yii::$app->user->getIdentity()->authority()->goal;
+            \Yii::$container->get(DriverService::class)
+                ->planGoals($phone, $goal);
+        } catch (\Throwable $t) {
+            return 1;
+        }
+        return 0;
     }
 
     public function actionSignUp(): string

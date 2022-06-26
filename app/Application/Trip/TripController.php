@@ -42,7 +42,7 @@ final class TripController extends Controller
                         $tripAddForm->spentTime,
                         $tripAddForm->date
                     );
-                $tripAddForm = new TripAddForm();
+                $tripAddForm = TripAddForm::rand();
             } catch (\DomainException|\RuntimeException $t) {
                 $error = match (true) {
                     $t instanceof \DomainException => "Добавление поездки невозможно!",
