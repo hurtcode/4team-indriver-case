@@ -8,7 +8,9 @@ interface TripRepository
 {
     public function persists(Trip &$trip): void;
 
-    public function getForMonth(int $driverId): array;
+	public function getByYear(int $driverId): array;
+
+	public function getForMonth(int $driverId): array;
 
     public function getAllBySpec(int $driverId, int $offset, int $limit);
 
