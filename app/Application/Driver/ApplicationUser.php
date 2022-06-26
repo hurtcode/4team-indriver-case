@@ -32,6 +32,11 @@ final class ApplicationUser implements IdentityInterface
         return $this->authority->phone;
     }
 
+    public function authority(): DriverAuthority
+    {
+        return $this->authority;
+    }
+
     public function getAuthKey()
     {
         return null;

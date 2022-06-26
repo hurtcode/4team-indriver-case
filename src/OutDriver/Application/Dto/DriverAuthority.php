@@ -7,8 +7,8 @@ namespace OutDriver\Application\Dto;
 final class DriverAuthority
 {
     public function __construct(
+        public readonly int $id,
         public readonly string $phone,
-    )
-    {
+    ) {
     }
 }
