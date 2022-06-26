@@ -53,7 +53,11 @@ final class DriverService
         }
 
         return $driver->password() === $password
-            ? new DriverAuthority($driver->id(), $driver->phone())
+            ? new DriverAuthority(
+                $driver->id(),
+                $driver->phone(),
+                $driver->paymentGoal()->goal()
+            )
             : null;
     }
 
@@ -106,17 +110,17 @@ final class DriverService
         $this->driverRepository->persist($driver);
     }
 
-	public function getDrivePrice(string $driverPhone): float
-	{
-		$driver = $this->driverRepository->byPhone($driverPhone);
-		return $driver->paymentGoal()->additionalPayment();
-	}
+    public function getDrivePrice(string $driverPhone): float
+    {
+        $driver = $this->driverRepository->byPhone($driverPhone);
+        return $driver->paymentGoal()->additionalPayment();
+    }
 
     public function amortization(int $driverId): AmortizationResponse
     {
         $driver = $this->driverRepository->byId($driverId);
         $amortization = $this->amortization->amortization($driver);
 
-		return new AmortizationResponse($amortization);
-	}
+        return new AmortizationResponse($amortization);
+    }
 }
