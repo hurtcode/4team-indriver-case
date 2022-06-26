@@ -154,9 +154,8 @@ $("#wish-income").on("focusout", function (){
 })
 
 $(document).on('re-calculate', function () {
-
     let costs_container = $("#costs");
-    result = fetchMinPrice();
+    let fetchRes = fetchMinPrice();
     costs_container.fadeOut({
         duration: anim_duration,
         complete: () => {
@@ -164,7 +163,7 @@ $(document).on('re-calculate', function () {
             costs_container.fadeIn({
                 duration: anim_duration,
                 complete: () => {
-                    result.then((res) => {
+                    fetchRes.then((res) => {
                         costs_container.fadeOut({
                             duration: anim_duration,
                             complete: () => {
@@ -181,7 +180,7 @@ $(document).on('re-calculate', function () {
     })
 
     let minipal_price_container = $("#minimal-price");
-    result = calculateMinPrice().then(fetchMinPrice);
+    let calcResult = calculateMinPrice().then(fetchMinPrice);
     minipal_price_container.fadeOut({
         duration: anim_duration,
         complete: () => {
@@ -189,7 +188,7 @@ $(document).on('re-calculate', function () {
             minipal_price_container.fadeIn({
                 duration: anim_duration,
                 complete: () => {
-                    result.then((res) => {
+                    calcResult.then((res) => {
                         minipal_price_container.fadeOut({
                             duration: anim_duration,
                             complete: () => {
