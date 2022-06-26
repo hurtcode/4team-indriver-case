@@ -7,7 +7,7 @@ namespace OutDriver\Domain\Driver;
 use Cycle\Annotated\Annotation\Column;
 use Cycle\Annotated\Annotation\Entity;
 use Cycle\Annotated\Annotation\Relation\Embedded;
-use OutDriver\Domain\Driver\Car\Car;
+use OutDriver\Domain\Driver\Car;
 
 #[Entity(table: 'driver', database: 'outdriver')]
 final class Driver

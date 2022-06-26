@@ -1,6 +1,6 @@
 <?php
 
-namespace OutDriver\Domain\Driver\Car;
+namespace OutDriver\Domain\Driver\Car\History\Accidents;
 
 class AccidentsHistory
 {

@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace OutDriver\Infrastructure\Driver;
+namespace OutDriver\Infrastructure\Persistence\Driver;
 
-use OutDriver\Domain\Driver\Driver;
+use OutDriver\Domain\Driver\Car\Driver;
 use OutDriver\Infrastructure\Persistence\AbstractRepository;
 
 final class DriverRepository
     extends AbstractRepository
-    implements \OutDriver\Domain\Driver\DriverRepository
+    implements \OutDriver\Domain\Driver\Car\DriverRepository
 
 {
     protected function entity(): string

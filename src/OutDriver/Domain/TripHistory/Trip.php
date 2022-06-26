@@ -7,7 +7,7 @@ namespace OutDriver\Domain\TripHistory;
 use Cycle\Annotated\Annotation\Column;
 use Cycle\Annotated\Annotation\Entity;
 use Cycle\Annotated\Annotation\Relation\BelongsTo;
-use OutDriver\Domain\Driver\Driver;
+use OutDriver\Domain\Driver\Car\Driver;
 
 #[Entity(table: 'trip')]
 final class Trip

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace OutDriver\Infrastructure\TripHistory;
+namespace OutDriver\Infrastructure\Persistence\TripHistory;
 
 use OutDriver\Domain\TripHistory\Trip;
 use OutDriver\Infrastructure\Persistence\AbstractRepository;

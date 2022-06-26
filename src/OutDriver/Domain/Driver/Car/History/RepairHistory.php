@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace OutDriver\Domain\Driver\Car;
+namespace OutDriver\Domain\Driver\Car\History;
 
 use Cycle\Annotated\Annotation\Column;
 use Cycle\Annotated\Annotation\Embeddable;

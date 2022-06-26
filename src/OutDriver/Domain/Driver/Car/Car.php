@@ -7,7 +7,8 @@ namespace OutDriver\Domain\Driver\Car;
 use Cycle\Annotated\Annotation\Column;
 use Cycle\Annotated\Annotation\Embeddable;
 use Cycle\Annotated\Annotation\Relation\Embedded;
-use OutDriver\Domain\Driver\FuelType;
+use OutDriver\Domain\Driver\Car\History\RepairHistory;
+use OutDriver\Domain\Driver\Car\History\ExploitationHistory;
 
 #[Embeddable]
 final class Car

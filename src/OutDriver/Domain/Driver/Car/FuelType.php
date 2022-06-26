@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace OutDriver\Domain\Driver;
+namespace OutDriver\Domain\Driver\Car;
 
 use Cycle\Annotated\Annotation\Embeddable;
 

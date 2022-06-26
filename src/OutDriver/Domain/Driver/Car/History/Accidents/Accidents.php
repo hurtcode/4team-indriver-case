@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace OutDriver\Domain\Driver\Car;
+namespace OutDriver\Domain\Driver\Car\History\Accidents;
 
 use Exception;
 
