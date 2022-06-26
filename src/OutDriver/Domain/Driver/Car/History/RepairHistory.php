@@ -8,7 +8,7 @@ use Cycle\Annotated\Annotation\Column;
 use Cycle\Annotated\Annotation\Embeddable;
 
 #[Embeddable]
-final class RepairHistory
+class RepairHistory
 {
     public function __construct(
         #[Column(type: 'float', name: 'averageFixPrice', nullable: true)]

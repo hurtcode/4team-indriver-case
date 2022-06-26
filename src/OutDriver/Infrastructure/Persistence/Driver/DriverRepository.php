@@ -15,7 +15,7 @@ final class DriverRepository extends AbstractRepository implements DriverReposit
         return Driver::class;
     }
 
-    public function byId(int $id): Driver
+    public function byId(int $id): ?Driver
     {
         /** @var Driver $driver */
         try {
@@ -26,7 +26,7 @@ final class DriverRepository extends AbstractRepository implements DriverReposit
         }
     }
 
-    public function byPhone(string $phone): Driver
+    public function byPhone(string $phone): ?Driver
     {
         /** @var Driver $driver */
         try {
@@ -37,10 +37,10 @@ final class DriverRepository extends AbstractRepository implements DriverReposit
         }
     }
 
-    public function save(Driver $driver): void
+    public function persist(Driver &$driver): void
     {
         try {
-            $this->transaction()->persist($driver);
+            $this->transaction()->persist($driver)->run();
         } catch (\Throwable $t) {
             throw new \RuntimeException($t->getMessage());
         }

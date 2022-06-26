@@ -20,50 +20,27 @@ use OutDriver\Infrastructure\Persistence\EnumTypecast;
         EnumTypecast::class
     ],
 )]
-final class Car
+class Car
 {
     #[Column(type: 'primary', name: 'id')]
-    private int $carId;
-    #[Column(type: 'integer', name: 'driverId')]
-    private int $driverId;
-    #[Column(type: 'float', name: 'price')]
-    private readonly float $price;
-    #[Embedded(target: Engine::class)]
-    private Engine $engine;
-    #[Column(type: 'string', name: 'category', typecast: Category::class)]
-    private Category $category;
-    #[Column(type: 'integer', name: 'preferableFuel', nullable: true, typecast: FuelType::class)]
-    private ?FuelType $preferableFuel;
-    #[Embedded(target: ExploitationHistory::class)]
-    private ExploitationHistory $history;
-    #[Embedded(target: RepairHistory::class)]
-    private RepairHistory $repairHistory;
+    private ?int $carId = null;
 
     public function __construct(
-        int $driverId,
-        string $model,
-        Engine $engine,
-        string $category,
+        #[Column(type: 'integer', name: 'driverId')]
+        private int $driverId,
+        #[Column(type: 'float', name: 'price')]
+        private float $price,
+        #[Embedded(target: Engine::class)]
+        private Engine $engine,
+        #[Column(type: 'string', name: 'category', typecast: Category::class)]
+        private Category $category,
+        #[Column(type: 'integer', name: 'preferableFuel', nullable: true, typecast: FuelType::class)]
+        private ?FuelType $preferableFuel,
+        #[Embedded(target: ExploitationHistory::class)]
+        private ExploitationHistory $history,
+        #[Embedded(target: RepairHistory::class)]
+        private RepairHistory $repairHistory,
     ) {
-        $this->driverId = $driverId;
-        $this->setModel($model);
-        $this->setEngine($engine);
-        $this->setCategory($category);
-    }
-
-    public function setModel(string $model): void
-    {
-        $this->model = $model;
-    }
-
-    public function setEngine(Engine $engine): void
-    {
-        $this->engine = $engine;
-    }
-
-    public function setCategory(string $category): void
-    {
-        $this->category = Category::from($category);
     }
 
     public function engine(): Engine

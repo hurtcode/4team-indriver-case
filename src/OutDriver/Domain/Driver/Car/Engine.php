@@ -9,7 +9,7 @@ use Cycle\Annotated\Annotation\Embeddable;
 use DomainException;
 
 #[Embeddable]
-final class Engine
+class Engine
 {
     #[Column(type: 'float', name: 'gasConsumption')]
     private float $gasConsumption;
@@ -22,13 +22,13 @@ final class Engine
     }
 
     /** @throws DomainException */
-    public function setAvgGasConsumption(float $GasConsumption): void
+    public function setAvgGasConsumption(float $gasConsumption): void
     {
-        if ($this->gasConsumption < 0) {
+        if ($gasConsumption < 0) {
             throw new DomainException("Invalid Gas consumption metric! It should be higher then 0");
         }
 
-        $this->gasConsumption = $GasConsumption;
+        $this->gasConsumption = $gasConsumption;
     }
 
     public function gasConsumption(): float

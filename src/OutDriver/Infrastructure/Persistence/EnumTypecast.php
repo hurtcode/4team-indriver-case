@@ -32,6 +32,9 @@ final class EnumTypecast implements CastableInterface, UncastableInterface
     public function setRules(array $rules): array
     {
         foreach ($rules as $property => $enum) {
+            if (is_array($enum)) {
+                $enum = $enum[0];
+            }
             if (
                 is_string($enum) &&
                 in_array(BackedEnum::class, class_implements($enum))
