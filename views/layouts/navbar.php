@@ -35,7 +35,7 @@ use yii\helpers\Html;
 		<li class="nav-item">
             <?= Html::a(
                 '<i class="fas fa-sign-out-alt"></i>',
-                ['/driver/logout'],
+                ['/site/logout'],
                 ['data-method' => 'post', 'class' => 'nav-link']
             ) ?>
 		</li>

@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace OutDriver\Yii\Application;
 
-use OutDriver\Yii\Application\Trip\TripAddForm;
 use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
 use yii\web\Controller;
+use yii\web\Response;
 
 final class SiteController extends Controller
 {
@@ -55,26 +55,18 @@ final class SiteController extends Controller
         ];
     }
 
-    /**
-     * Action to see AdminLTE presets
-     * Blocks, containers, etc.
-     */
-    public function actionPreset(): string
-    {
-        return $this->render('preset');
-    }
-
-    /**
-     * Displays homepage.
-     *
-     * @return string
-     */
-    public function actionIndex()
+    /** Home page */
+    public function actionIndex(): string
     {
         return $this->render('index');
     }
 
-    public function actionLogout()
+    public function actionLogout(): Response
     {
+        \Yii::$app->user->logout();
+
+        return $this->redirect(
+            \Yii::$app->user->loginUrl
+        );
     }
 }
