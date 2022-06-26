@@ -6,27 +6,27 @@ namespace OutDriver\Domain\Driver\Car;
 
 use Cycle\Annotated\Annotation\Column;
 use Cycle\Annotated\Annotation\Embeddable;
-use Exception;
+use DomainException;
 
 #[Embeddable]
 final class Engine
 {
-    #[Column(type: 'float',name: 'gasConsumption')]
+    #[Column(type: 'float', name: 'gasConsumption')]
     private float $gasConsumption;
 
-    /** @throws Exception */
+    /** @throws DomainException */
     public function __construct(
         float $avgGasConsumption,
-    )
-    {
+    ) {
         $this->setAvgGasConsumption($avgGasConsumption);
     }
 
-    /** @throws Exception */
+    /** @throws DomainException */
     public function setAvgGasConsumption(float $GasConsumption): void
     {
-        if ($this->gasConsumption < 0)
-            throw new Exception("Invalid Gas consumption metric! It should be higher then 0");
+        if ($this->gasConsumption < 0) {
+            throw new DomainException("Invalid Gas consumption metric! It should be higher then 0");
+        }
 
         $this->gasConsumption = $GasConsumption;
     }

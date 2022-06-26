@@ -4,9 +4,6 @@ declare(strict_types=1);
 
 namespace OutDriver\Domain\Driver\Car;
 
-use Cycle\Annotated\Annotation\Embeddable;
-
-#[Embeddable]
 enum Category: string
 {
     case M = 'M';

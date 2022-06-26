@@ -10,21 +10,21 @@ use Cycle\Annotated\Annotation\Embeddable;
 #[Embeddable]
 final class RepairHistory
 {
-    #[Column(type: 'float', name: 'averageFixPrice')]
-    private float $averageFixPrice;
-    #[Column(type: 'float', name: 'fixInterval')]
-    private float $fixInterval; // How often you repair your car in km
-
-    public function __construct()
-    {
+    public function __construct(
+        #[Column(type: 'float', name: 'averageFixPrice', nullable: true)]
+        private ?float $averageFixPrice,
+        #[Column(type: 'float', name: 'fixInterval', nullable: true)]
+        private ?float $fixInterval
+    ) {
     }
 
-    public function averageFixPrice(): float
+
+    public function averageFixPrice(): ?float
     {
         return $this->averageFixPrice;
     }
 
-    public function fixInterval(): float
+    public function fixInterval(): ?float
     {
         return $this->fixInterval;
     }

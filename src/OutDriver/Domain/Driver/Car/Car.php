@@ -5,36 +5,43 @@ declare(strict_types=1);
 namespace OutDriver\Domain\Driver\Car;
 
 use Cycle\Annotated\Annotation\Column;
-use Cycle\Annotated\Annotation\Embeddable;
+use Cycle\Annotated\Annotation\Entity;
 use Cycle\Annotated\Annotation\Relation\Embedded;
+use Cycle\ORM\Parser\Typecast;
 use OutDriver\Domain\Driver\Car\History\RepairHistory;
 use OutDriver\Domain\Driver\Car\History\ExploitationHistory;
+use OutDriver\Infrastructure\Persistence\EnumTypecast;
 
-#[Embeddable]
+#[Entity(
+    table: 'car',
+    database: 'default',
+    typecast: [
+        Typecast::class,
+        EnumTypecast::class
+    ],
+)]
 final class Car
 {
     #[Column(type: 'string', name: 'model')]
     private string $model;
     #[Column(type: 'float', name: 'price')]
     private readonly float $price;
-
-    #[Embedded(Engine::class)]
+    #[Embedded(target: Engine::class)]
     private Engine $engine;
-    #[Embedded(Category::class)]
+    #[Column(type: 'string', name: 'category', typecast: Category::class)]
     private Category $category;
-    #[Embedded(FuelType::class)]
+    #[Column(type: 'integer', name: 'preferableFuel', nullable: true, typecast: FuelType::class)]
     private ?FuelType $preferableFuel;
-    #[Embedded(ExploitationHistory::class)]
-    private ?ExploitationHistory $history = null;
-    #[Embedded(RepairHistory::class)]
-    private ?RepairHistory $repairHistory = null;
+    #[Embedded(target: ExploitationHistory::class)]
+    private ExploitationHistory $history;
+    #[Embedded(target: RepairHistory::class)]
+    private RepairHistory $repairHistory;
 
     public function __construct(
         string $model,
         Engine $engine,
         string $category,
-    )
-    {
+    ) {
         $this->setModel($model);
         $this->setEngine($engine);
         $this->setCategory($category);
