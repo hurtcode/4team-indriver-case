@@ -4,13 +4,11 @@ declare(strict_types=1);
 
 namespace OutDriver\Infrastructure\Persistence\Driver;
 
-use OutDriver\Domain\Driver\Car\Driver;
+use OutDriver\Domain\Driver\DriverRepository as DriverRepositoryInt;
 use OutDriver\Infrastructure\Persistence\AbstractRepository;
+use OutDriver\Domain\Driver\Driver;
 
-final class DriverRepository
-    extends AbstractRepository
-    implements \OutDriver\Domain\Driver\Car\DriverRepository
-
+final class DriverRepository extends AbstractRepository implements DriverRepositoryInt
 {
     protected function entity(): string
     {
@@ -24,6 +22,7 @@ final class DriverRepository
             $driver = $this->repository()->findByPK($id);
             return $driver;
         } catch (\Throwable $t) {
+            throw new \RuntimeException($t->getMessage());
         }
     }
 
@@ -34,6 +33,7 @@ final class DriverRepository
             $driver = $this->repository()->findOne(['phone' => $phone]);
             return $driver;
         } catch (\Throwable $t) {
+            throw new \RuntimeException($t->getMessage());
         }
     }
 
@@ -42,6 +42,7 @@ final class DriverRepository
         try {
             $this->transaction()->persist($driver);
         } catch (\Throwable $t) {
+            throw new \RuntimeException($t->getMessage());
         }
     }
 }
