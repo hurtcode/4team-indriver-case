@@ -1,5 +1,7 @@
 <?php
 
+use yii\db\Connection;
+
 return [
     'dbal' => new \Cycle\Database\DatabaseManager(
         new \Cycle\Database\Config\DatabaseConfig([
@@ -20,7 +22,4 @@ return [
             ],
         ])
     ),
-    'generator' => [
-
-    ],
 ];

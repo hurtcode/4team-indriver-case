@@ -31,22 +31,6 @@ return call_user_func(static function () {
                 'enableAutoLogin' => true,
                 'loginUrl' => ['driver/sign-in']
             ],
-            'db' => [
-                'class' => \yii\db\Connection::class,
-                'dsn' => (string)(new \OutDriver\Yii\Db\PostgresSqlDsn(
-                    $_ENV['DB_HOST'],
-                    $_ENV['DB_PORT'],
-                    $_ENV['DB_USER'],
-                    $_ENV['DB_PASSWORD'],
-                    $_ENV['DB_NAME'],
-                )),
-                'schemaMap' => [
-                    'pgsql' => [
-                        'class' => 'yii\db\pgsql\Schema',
-                        'defaultSchema' => $_ENV['DB_SCHEMA']
-                    ]
-                ]
-            ],
             'errorHandler' => [
                 'errorAction' => 'site/error',
             ],
