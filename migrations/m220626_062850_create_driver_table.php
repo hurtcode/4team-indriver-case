@@ -10,7 +10,6 @@ class m220626_062850_create_driver_table extends Migration
 	{
 		$this->createTable($this->table, [
 			'id' => $this->primaryKey(),
-			'carId' => $this->integer(),
 			'phone' => $this->string(11),
 			'password' => $this->string(50),
 			'paymentGoal' => $this->string(),

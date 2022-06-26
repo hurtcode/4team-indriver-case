@@ -3,6 +3,7 @@
 use Cycle\ORM\ORM;
 use OutDriver\Yii\Db\OrmFactory;
 use OutDriver\Yii\Db\SchemaGenerator;
+use yii\di\Instance;
 
 return [
     'definitions' => [
@@ -11,7 +12,15 @@ return [
                 $dbal = Yii::$app->params['db']['dbal'],
                 (new SchemaGenerator($dbal, Yii::getAlias('@app/src')))()
             ))();
-        }
+        },
+
+        \OutDriver\Domain\Driver\DriverRepository::class => Instance::of(
+            \OutDriver\Infrastructure\Persistence\Driver\DriverRepository::class
+        ),
+
+        \OutDriver\Domain\Driver\Trip\TripRepository::class => Instance::of(
+            \OutDriver\Infrastructure\Persistence\TripHistory\TripRepository::class
+        )
     ],
     'singletons' => []
 ];

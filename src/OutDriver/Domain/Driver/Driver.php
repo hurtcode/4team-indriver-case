@@ -23,7 +23,7 @@ final class Driver
     #[Embedded(PaymentGoals::class)]
     private PaymentGoals $goals;
 
-    #[HasOne(target: Car::class, outerKey: 'driverId')]
+    #[HasOne(target: Car::class, innerKey: 'id', outerKey: 'driverId')]
     private Car $car;
 
     public function __construct(

@@ -5,19 +5,21 @@ declare(strict_types=1);
 namespace OutDriver\Application;
 
 use DomainException;
-use RuntimeException;
-use OutDriver\Domain\TripHistory\Trip;
-use OutDriver\Application\Dto\DriverAuthority;
 use OutDriver\Application\Dto\AmortizationResponse;
+use OutDriver\Application\Dto\DriverAuthority;
+use OutDriver\Domain\Driver\Amortization\Amortization;
+use OutDriver\Domain\Driver\DriverRepository;
+use OutDriver\Domain\Driver\Trip\Trip;
+use OutDriver\Domain\Driver\Trip\TripRepository;
+use RuntimeException;
 
 final class DriverService
 {
     public function __construct(
-//        private readonly Amortization     $amortization,
-//        private readonly TripRepository   $tripRepository,
-//        private readonly DriverRepository $driverRepository,
-    )
-    {
+        private readonly Amortization $amortization,
+        private readonly TripRepository $tripRepository,
+        private readonly DriverRepository $driverRepository,
+    ) {
     }
 
     /**
@@ -42,33 +44,28 @@ final class DriverService
      */
     public function addTrip(
         string $driverPhone,
-        float  $cost,
-        float  $distance,
+        float $cost,
+        float $distance,
         string $spentTime,
         string $date
-    ): void
-    {
+    ): void {
         $driver = $this
             ->driverRepository
             ->byPhone($driverPhone);
 
-        $trip = new Trip(
-            $driver,
+        $trip = $driver->makeTrip(
             $cost,
             $distance,
             \DateTimeImmutable::createFromFormat('h:i:s', $spentTime),
             \DateTimeImmutable::createFromFormat('Y-m-d', $date)
         );
+
         $this->tripRepository->save($trip);
     }
 
     /** @return Trip[] */
     public function allTrips(string $driverPhone, int $offset, int $limit): array
     {
-        $driver = $this
-            ->driverRepository
-            ->byPhone($driverPhone);
-
         return $this->tripRepository->getAllBySpec($driverPhone, $offset, $limit);
     }
 

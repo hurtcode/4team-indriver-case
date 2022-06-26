@@ -22,10 +22,10 @@ use OutDriver\Infrastructure\Persistence\EnumTypecast;
 )]
 final class Car
 {
+    #[Column(type: 'primary', name: 'id')]
+    private int $carId;
     #[Column(type: 'integer', name: 'driverId')]
     private int $driverId;
-    #[Column(type: 'string', name: 'model')]
-    private string $model;
     #[Column(type: 'float', name: 'price')]
     private readonly float $price;
     #[Embedded(target: Engine::class)]
