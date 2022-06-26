@@ -53,6 +53,43 @@
 <?php
 $js = <<<JS
 
+async function fetchCosts() {
+    return new Promise(function (resolve) {
+        $.ajax({
+            url: "/driver/costs",
+            type: "GET",
+            success: function (result) {
+                resolve(result)
+            },
+            error: function () {
+                resolve('Непредвиденная ошибка!')
+            }
+        })
+    })
+}
+
+fetchCosts().then(function (result) {
+    let container = $("#costs");
+    container.fadeOut({
+        duration: anim_duration,
+        complete: function () {
+            container.html(result)
+            container.fadeIn()
+        }
+    })
+})
+
+async function calculateMinPrice()
+{
+    
+}
+
+async function fetchMinPrice()
+{
+    
+}
+
+
 JS;
 $this->registerJs($js);
 ?>

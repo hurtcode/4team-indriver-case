@@ -17,86 +17,90 @@ use OutDriver\Domain\Driver\Forecasting\Amortization\Amortization;
 
 final class DriverService
 {
-	public function __construct(
-		private readonly Amortization $amortization,
-		private readonly TripRepository $tripRepository,
-		private readonly DriverRepository $driverRepository,
-		private readonly ForecastingService $forecastingService,
-	)
-	{
-	}
+    public function __construct(
+        private readonly Amortization $amortization,
+        private readonly TripRepository $tripRepository,
+        private readonly DriverRepository $driverRepository,
+        private readonly ForecastingService $forecastingService,
+    ) {
+    }
 
-	/**
-	 * Finds Driver for auth session. Returns null if no
-	 * matched driver by phone
-	 */
-	public function driverByIdentity(string $phone): ?DriverAuthority
-	{
-		$driver = $this
-			->driverRepository
-			->byPhone($phone);
+    /**
+     * Finds Driver for auth session. Returns null if no
+     * matched driver by phone
+     */
+    public function driverByIdentity(string $phone): ?DriverAuthority
+    {
+        $driver = $this
+            ->driverRepository
+            ->byPhone($phone);
 
-		return empty($driver)
-			? null
-			: new DriverAuthority($driver->phone());
-	}
+        return empty($driver)
+            ? null
+            : new DriverAuthority($driver->id(), $driver->phone());
+    }
 
-	public function authorize(string $phone, string $password): ?DriverAuthority
-	{
-		$driver = $this->driverRepository->byPhone($phone);
+    public function authorize(string $phone, string $password): ?DriverAuthority
+    {
+        $driver = $this->driverRepository->byPhone($phone);
 
-		if (empty($driver))
-			return null;
+        if (empty($driver)) {
+            return null;
+        }
 
-		return $driver->password() === $password
-			? new DriverAuthority($driver->phone())
-			: null;
-	}
+        return $driver->password() === $password
+            ? new DriverAuthority($driver->id(), $driver->phone())
+            : null;
+    }
 
-	/**
-	 * @throws DomainException
-	 * @throws RuntimeException
-	 */
-	public function addTrip(
-		string $driverPhone,
-		float $cost,
-		float $distance,
-		string $spentTime,
-		string $date
-	): void
-	{
-		$driver = $this
-			->driverRepository
-			->byPhone($driverPhone);
+    /**
+     * @throws DomainException
+     * @throws RuntimeException
+     */
+    public function addTrip(
+        string $driverPhone,
+        float $cost,
+        float $distance,
+        string $spentTime,
+        string $date
+    ): void {
+        $driver = $this
+            ->driverRepository
+            ->byPhone($driverPhone);
 
-		$trip = $driver->makeTrip(
-			$cost,
-			$distance,
-			\DateTimeImmutable::createFromFormat('h:i:s', $spentTime),
-			\DateTimeImmutable::createFromFormat('Y-m-d', $date)
-		);
+        $trip = $driver->makeTrip(
+            $cost,
+            $distance,
+            \DateTimeImmutable::createFromFormat('H:i:s', $spentTime),
+            \DateTimeImmutable::createFromFormat('d-m-Y', $date)
+        );
 
-		$this->tripRepository->save($trip);
-	}
+        $this->tripRepository->persists($trip);
+    }
 
-	/** @return Trip[] */
-	public function allTrips(string $driverPhone, int $offset, int $limit): array
-	{
-		return $this->tripRepository->getAllBySpec($driverPhone, $offset, $limit);
-	}
+    /** @return Trip[] */
+    public function allTrips(int $driverId, int $offset, int $limit): array
+    {
+        return $this->tripRepository->getAllBySpec($driverId, $offset, $limit);
+    }
 
-	public function planGoals(string $driverPhone, float $goals): void
-	{
-		$driver = $this
-			->driverRepository
-			->byPhone($driverPhone);
+    public function allTripsCount(int $driverId): int
+    {
+        return $this->tripRepository->allTripsCount($driverId);
+    }
 
-		$driver->planGoals(
-			$this->forecastingService->planGoals($driver, $goals)
-		);
+    public function planGoals(string $driverPhone, float $goals): void
+    {
+        $driver = $this
+            ->driverRepository
+            ->byPhone($driverPhone);
 
-		$this->driverRepository->persist($driver);
-	}
+        $driver->planGoals(
+            $this->forecastingService->planGoals($driver, $goals)
+        );
+
+        $this->driverRepository->persist($driver);
+    }
 
 	public function getDrivePrice(string $driverPhone): float
 	{
@@ -104,10 +108,10 @@ final class DriverService
 		return $driver->paymentGoal()->additionalPayment();
 	}
 
-	public function amortization(int $driverId): AmortizationResponse
-	{
-		$driver = $this->driverRepository->byId($driverId);
-		$amortization = $this->amortization->amortization($driver);
+    public function amortization(int $driverId): AmortizationResponse
+    {
+        $driver = $this->driverRepository->byId($driverId);
+        $amortization = $this->amortization->amortization($driver);
 
 		return new AmortizationResponse($amortization);
 	}

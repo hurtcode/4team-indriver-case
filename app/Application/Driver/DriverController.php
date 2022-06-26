@@ -26,6 +26,11 @@ final class DriverController extends Controller
                         'allow' => true,
                         'roles' => ['?'],
                     ],
+                    [
+                        'actions' => ['costs'],
+                        'allow' => true,
+                        'roles' => ['@']
+                    ]
                 ],
             ],
         ];
@@ -53,6 +58,23 @@ final class DriverController extends Controller
         }
 
         return $this->render('sign-in', compact('signInForm'));
+    }
+
+    public function actionCosts(): string
+    {
+        if (!$this->request->isAjax) {
+            return 'Not Allowed!';
+        }
+
+        try {
+            $id = \Yii::$app->user->getIdentity()->authority()->id;
+            $res = \Yii::$container->get(DriverService::class)
+                ->amortization($id);
+        } catch (\Throwable $t) {
+            return "Ошибка!";
+        }
+
+        return (string)round($res->amortization, 2);
     }
 
     public function actionSignUp(): string

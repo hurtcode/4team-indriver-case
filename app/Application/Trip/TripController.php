@@ -17,7 +17,7 @@ final class TripController extends Controller
                 'class' => AccessControl::class,
                 'rules' => [
                     [
-                        'actions' => ['add-trip'],
+                        'actions' => ['add-trip', 'all-trips'],
                         'allow' => true,
                         'roles' => ['@']
                     ]
@@ -54,7 +54,14 @@ final class TripController extends Controller
         return $this->renderAjax('add-form', ['tripAddForm' => $tripAddForm, 'error' => $error ?? null]);
     }
 
-    public function actionAllTrips(): void
+    public function actionAllTrips(): string
     {
+        if (!$this->request->isAjax) {
+            return 'Not Allowed!';
+        }
+
+        return $this->renderAjax('trip-grid',
+            ['trips' => new TripsDataProvider(['pagination' => ['pageSize' => 20]])]
+        );
     }
 }

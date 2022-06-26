@@ -8,7 +8,7 @@ use Cycle\Annotated\Annotation\Column;
 use Cycle\Annotated\Annotation\Entity;
 
 #[Entity(table: 'trip', database: 'default')]
-final class Trip
+class Trip
 {
     #[Column(type: 'primary', name: 'id', primary: true)]
     private int $id;
@@ -21,10 +21,15 @@ final class Trip
         #[Column(type: 'float', name: 'distance')]
         private float $distance,
         #[Column(type: 'datetime', name: 'spentTime')]
-        private \DateTimeImmutable $spentTime,
+        private \DateTimeInterface $spentTime,
         #[Column(type: 'datetime', name: 'date')]
-        private \DateTimeImmutable $date,
+        private \DateTimeInterface $date,
     ) {
+    }
+
+    public function id(): int
+    {
+        return $this->id;
     }
 
     public function distance(): float
